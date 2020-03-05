@@ -5,8 +5,10 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.net.ServerSocket;
 import java.net.Socket;
 
 
@@ -24,7 +26,7 @@ class Ventana extends JFrame {
     }
 }
 
-class LabelVentana extends JPanel{
+class LabelVentana extends JPanel implements Runnable{
     private int host;
     private String ip;
 
@@ -36,6 +38,9 @@ class LabelVentana extends JPanel{
         this.ip = ip;
     }
 
+    /**
+     *
+     */
     public LabelVentana(){
         port = new JLabel("Nombre");
         add(port);
@@ -61,7 +66,30 @@ class LabelVentana extends JPanel{
         Send send = new Send();
         send_btn.addActionListener(send);
         add(send_btn);
+
+        Thread hilo2  = new Thread(this);
+        hilo2.start();
     }
+
+    @Override
+    public void run() {
+        try {
+            ServerSocket S_Cliente = new ServerSocket(7070);
+            Socket Cliente;
+            Info infoRecibida;
+
+            while (true){
+                Cliente = S_Cliente.accept();
+                ObjectInputStream entrada = new ObjectInputStream(Cliente.getInputStream());
+
+                infoRecibida = (Info) entrada.readObject();
+
+            }
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
     private class Send implements ActionListener {
 
         @Override
@@ -79,20 +107,6 @@ class LabelVentana extends JPanel{
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
-        }
-    }
-    private class Reconect implements ActionListener {
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            port.setVisible(true);
-            text_port.setVisible(true);
-            label_ip.setVisible(true);
-            text_ip.setVisible(true);
-            conect_btn.setVisible(true);
-            reconect_btn.setVisible(false);
-            send_text.setVisible(false);
-            send_btn.setVisible(false);
         }
     }
     private JTextField text_port, text_ip, send_text;

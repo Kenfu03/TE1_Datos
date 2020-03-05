@@ -23,6 +23,9 @@ class Server implements Runnable{
         thread.start();
     }
 
+    /**
+     *
+     */
     @Override
     public void run() {
         try{
@@ -30,18 +33,27 @@ class Server implements Runnable{
 
             String nombre, ip, mensaje;
 
-            Info info_reciida;
+            Info info_recibida;
 
             while (true){
                 System.out.println("Listening..."); // empieza a recibir
                 Socket entrante = serverSocket.accept(); // acepta la entrada de un cliente X
                 ObjectInputStream lector = new ObjectInputStream(entrante.getInputStream());
-                info_reciida = (Info) lector.readObject();
+                info_recibida = (Info) lector.readObject();
 
-                if(Mensaje_text!=null) {
-                    mensaje = Mensaje_text;
-                    System.out.println(mensaje);
-                }// lee lo que esta guardado
+                nombre = info_recibida.getNombre();
+                ip = info_recibida.getIp();
+                mensaje = info_recibida.getMensaje();
+
+                System.out.println(nombre + ip + mensaje);
+
+                Socket newclient = new Socket(ip,7777);
+                ObjectOutputStream reInfo = new ObjectOutputStream(newclient.getOutputStream());
+
+                reInfo.writeObject(info_recibida);
+
+                newclient.close();
+
                 entrante.close(); // termina la conexion con el cliente
             }
         }catch (IOException | ClassNotFoundException e){
