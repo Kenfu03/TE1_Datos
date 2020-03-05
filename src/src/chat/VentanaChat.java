@@ -97,11 +97,12 @@ class LabelVentana extends JPanel implements Runnable{
         @Override
         public void actionPerformed(ActionEvent e) {
             try {
-                Socket client = new Socket("192.168.100.164", 9999); // se conecta al puerto y no estoy seguro de lo del host
+                Socket client = new Socket("127.0.0.1", 9999); // se conecta al puerto y no estoy seguro de lo del host
                 Info info = new Info();
                 info.setIp(text_ip.getText());
                 info.setNombre(text_port.getText());
                 info.setMensaje(send_text.getText());
+                textArea.append(info.getNombre() + ":" + info.getMensaje() + "\n");
                 ObjectOutputStream datos_salida = new ObjectOutputStream(client.getOutputStream());
                 datos_salida.writeObject(info);
                 send_text.setText("");
