@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2a1f1f96-b3e3-4093-a8f3-d3d0d28b0876" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/src/chat/SocketServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/src/chat/SocketServer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/src/chat/VentanaChat.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/src/chat/VentanaChat.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/src/chat/Sockets.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -108,7 +107,7 @@
       <option name="presentableId" value="Default" />
       <updated>1583302641879</updated>
       <workItem from="1583302644958" duration="26535000" />
-      <workItem from="1583372709908" duration="12177000" />
+      <workItem from="1583372709908" duration="12701000" />
     </task>
     <servers />
   </component>
