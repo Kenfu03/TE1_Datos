@@ -1,10 +1,7 @@
 package src.chat;
 
 import javax.swing.*;
-import java.io.BufferedReader;
-import java.io.DataInputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -29,12 +26,17 @@ class Server implements Runnable{
     @Override
     public void run() {
         try{
-            ServerSocket serverSocket = new ServerSocket(40000); // se crea el server con X puerto para las conexiones
+            ServerSocket serverSocket = new ServerSocket(7777); // se crea el server con X puerto para las conexiones
+
+            String nombre, ip, mensaje;
+
+            Info info_reciida;
+
             while (true){
                 System.out.println("Listening..."); // empieza a recibir
                 Socket entrante = serverSocket.accept(); // acepta la entrada de un cliente X
-                DataInputStream lector = new DataInputStream(entrante.getInputStream());
-                String Mensaje_text = lector.readUTF();
+                ObjectInputStream lector = new ObjectInputStream(entrante.getInputStream());
+                info_reciida = (Info) lector.readObject();
 
                 if(Mensaje_text!=null) {
                     mensaje = Mensaje_text;
@@ -42,7 +44,7 @@ class Server implements Runnable{
                 }// lee lo que esta guardado
                 entrante.close(); // termina la conexion con el cliente
             }
-        }catch (IOException e){
+        }catch (IOException | ClassNotFoundException e){
             e.printStackTrace();
 
         }
