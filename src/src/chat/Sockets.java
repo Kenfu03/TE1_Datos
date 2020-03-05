@@ -1,4 +1,4 @@
-package chat;
+package src.chat;
 
 import java.io.IOException;
 import java.io.OutputStreamWriter;

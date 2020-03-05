@@ -1,38 +1,50 @@
-package chat;
+package src.chat;
 
+import javax.swing.*;
 import java.io.BufferedReader;
+import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class SocketServer implements Runnable {
+public class SocketServer {
+    public static void main(String[] args) throws IOException, InterruptedException {
+        Server server = new Server();
+    }
+}
+class Server implements Runnable{
     private String mensaje;
     private int host;
 
-    public SocketServer(int host) {
-        this.host = host;
+    public String getMensaje() {
+        return mensaje;
+    }
+
+    public Server(){
+        Thread thread = new Thread(this);
+        thread.start();
     }
 
     @Override
     public void run() {
         try{
-            ServerSocket serverSocket = new ServerSocket(host); // se crea el server con X puerto para las conexiones
+            ServerSocket serverSocket = new ServerSocket(40000); // se crea el server con X puerto para las conexiones
             while (true){
                 System.out.println("Listening..."); // empieza a recibir
                 Socket entrante = serverSocket.accept(); // acepta la entrada de un cliente X
-                BufferedReader lector = new BufferedReader(
-                        new InputStreamReader(entrante.getInputStream()));
-                String Mensaje_text = lector.readLine();
+                DataInputStream lector = new DataInputStream(entrante.getInputStream());
+                String Mensaje_text = lector.readUTF();
+
                 if(Mensaje_text!=null) {
                     mensaje = Mensaje_text;
-
+                    System.out.println(mensaje);
                 }// lee lo que esta guardado
-                System.out.println("Mensaje recibido:" + mensaje); // imprime lo que dice el mensaje
                 entrante.close(); // termina la conexion con el cliente
             }
         }catch (IOException e){
             e.printStackTrace();
+
         }
     }
 }

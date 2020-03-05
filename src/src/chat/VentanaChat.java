@@ -1,12 +1,10 @@
-package chat;
+package src.chat;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-
-import static chat.VentanaChat.*;
 
 
 public class VentanaChat {
@@ -19,10 +17,13 @@ class Ventana extends JFrame {
         setSize(700,600);
         setLocationRelativeTo(null);
         LabelVentana label = new LabelVentana();
+        //Frame frame = new Frame();
+        //add (frame);
         add(label);
         setVisible(true);
     }
 }
+
 class LabelVentana extends JPanel{
     private int host;
     private String ip;
@@ -64,14 +65,16 @@ class LabelVentana extends JPanel{
         add(reconect_btn);
         reconect_btn.setVisible(false);
 
-        scrollPane = new JScrollPane();
-        add(scrollPane);
-        scrollPane.setVisible(false);
-
+        //JTextArea in_text = new JTextArea();
         panel_text = new JPanel();
-        //panel_text.setLayout(null);
+        panel_text.setBounds(80,70,500,400);
+        //panel_text.add(in_text);
+        //in_text.setText("Hello");
+        scrollPane = new JScrollPane(panel_text);
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 
-        in_text = new JTextArea();
+        add(scrollPane);
 
         send_text = new JTextField(20);
         add(send_text);
@@ -101,6 +104,8 @@ class LabelVentana extends JPanel{
             scrollPane.setVisible(true);
             send_text.setVisible(true);
             send_btn.setVisible(true);
+            //send_text.setBounds(70,600,100,10);
+            //send_btn.setBounds(170,600,10,10);
         }
     }
     private class Send implements ActionListener {
@@ -112,11 +117,12 @@ class LabelVentana extends JPanel{
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
+            JButton in_text2 = new JButton("Hola");
+            in_text2.setBackground(Color.black);
             send_text.setText("");
-            //in_text.setText(send_text.getText());
-            panel_text.add(in_text);
-            in_text.setText("Hola");
-            //scrollPane.setViewportView(panel_text);
+            //JTextArea in_text = new JTextArea();
+            panel_text.add(in_text2);
+            //in_text.setText("Hola");
         }
     }
     private class Reconect implements ActionListener {
@@ -129,7 +135,7 @@ class LabelVentana extends JPanel{
             text_ip.setVisible(true);
             conect_btn.setVisible(true);
             reconect_btn.setVisible(false);
-            scrollPane.setVisible(false);
+            //scrollPane.setVisible(false);
             send_text.setVisible(false);
             send_btn.setVisible(false);
         }
@@ -146,11 +152,9 @@ class LabelVentana extends JPanel{
 
     private JLabel port;
     private JLabel label_ip;
-    private JLabel out_msj;
-    private JLabel in_msj;
+    //public JLabel out_msj;
+    //public JLabel in_msj;
 
-    private JPanel panel_text;
+    public JPanel panel_text;
 
-    private JTextArea in_text;
-    private JTextArea out_text;
 }
