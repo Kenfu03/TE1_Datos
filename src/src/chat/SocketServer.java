@@ -47,7 +47,7 @@ class Server implements Runnable{
 
                 System.out.println(nombre + ip + mensaje);
 
-                Socket newclient = new Socket(ip,7777);
+                Socket newclient = new Socket(ip,9090);
                 ObjectOutputStream reInfo = new ObjectOutputStream(newclient.getOutputStream());
 
                 reInfo.writeObject(info_recibida);

@@ -74,7 +74,7 @@ class LabelVentana extends JPanel implements Runnable{
     @Override
     public void run() {
         try {
-            ServerSocket S_Cliente = new ServerSocket(7070);
+            ServerSocket S_Cliente = new ServerSocket(9090);
             Socket Cliente;
             Info infoRecibida;
 
@@ -97,7 +97,7 @@ class LabelVentana extends JPanel implements Runnable{
         @Override
         public void actionPerformed(ActionEvent e) {
             try {
-                Socket client = new Socket("127.0.0.1", 7777); // se conecta al puerto y no estoy seguro de lo del host
+                Socket client = new Socket("192.168.100.164", 7777); // se conecta al puerto y no estoy seguro de lo del host
                 Info info = new Info();
                 info.setIp(text_ip.getText());
                 info.setNombre(text_port.getText());
