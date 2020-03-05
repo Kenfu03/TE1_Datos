@@ -84,6 +84,8 @@ class LabelVentana extends JPanel implements Runnable{
 
                 infoRecibida = (Info) entrada.readObject();
 
+                textArea.append(infoRecibida.getNombre() + ":" + infoRecibida.getMensaje() + "\n");
+
             }
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
