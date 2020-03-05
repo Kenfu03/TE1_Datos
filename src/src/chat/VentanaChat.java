@@ -1,7 +1,6 @@
 package src.chat;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -12,32 +11,19 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 
-class Ventana extends JFrame {
+class Ventana extends JFrame { //Herencia
     public Ventana() {
 
         setTitle("What'sApp");
         setSize(700,600);
         setLocationRelativeTo(null);
         LabelVentana label = new LabelVentana();
-        //Frame frame = new Frame();
-        //add (frame);
         add(label);
         setVisible(true);
     }
 }
 
 class LabelVentana extends JPanel implements Runnable{
-    private int host;
-    private String ip;
-
-    public void setHost(int host) {
-        this.host = host;
-    }
-
-    public void setIp(String ip) {
-        this.ip = ip;
-    }
-
     /**
      *
      */
@@ -114,7 +100,7 @@ class LabelVentana extends JPanel implements Runnable{
     }
     private JTextField text_port, text_ip, send_text;
 
-    private JButton conect_btn, send_btn, reconect_btn;
+    private JButton send_btn;
 
     private JLabel port, label_ip;
 
@@ -122,7 +108,7 @@ class LabelVentana extends JPanel implements Runnable{
 
 }
 class Info implements Serializable {
-    private String Ip, nombre, mensaje;
+    private String Ip, nombre, mensaje; //Encapsulamiento
 
     public String getIp() {
         return Ip;

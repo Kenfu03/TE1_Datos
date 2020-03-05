@@ -1,6 +1,5 @@
 package src.chat;
 
-import javax.swing.*;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -10,23 +9,21 @@ public class SocketServer {
         Server server = new Server();
     }
 }
-class Server implements Runnable{
-    private String mensaje;
-    private int host;
 
-    public String getMensaje() {
-        return mensaje;
-    }
+/**
+ *
+ */
+class Server implements Runnable{ //Abstraccion
 
     public Server(){
-        Thread thread = new Thread(this);
-        thread.start();
+        Thread thread = new Thread(this); //Se crea el hilo para el Socket Server
+        thread.start(); //Se inicia el hilo
     }
 
     /**
      *
      */
-    @Override
+    @Override //Sobreescritura
     public void run() {
         try{
             ServerSocket serverSocket = new ServerSocket(9999); // se crea el server con X puerto para las conexiones
@@ -36,25 +33,25 @@ class Server implements Runnable{
             Info info_recibida;
 
             while (true){
-                System.out.println("Listening..."); // empieza a recibir
-                Socket entrante = serverSocket.accept(); // acepta la entrada de un cliente X
-                ObjectInputStream lector = new ObjectInputStream(entrante.getInputStream());
-                info_recibida = (Info) lector.readObject();
+                System.out.println("Listening...");
+                Socket entrante = serverSocket.accept(); //Acepta la entrada de un cliente X
+                ObjectInputStream lector = new ObjectInputStream(entrante.getInputStream()); //Abre a conexion de emisor
+                info_recibida = (Info) lector.readObject(); //Lee los datos recibidos y los guarda en una variable
 
-                nombre = info_recibida.getNombre();
-                ip = info_recibida.getIp();
-                mensaje = info_recibida.getMensaje();
+                nombre = info_recibida.getNombre(); //Guarda el nombre recibido en la variable nombre
+                ip = info_recibida.getIp(); //Guarda el ip recibido en la variable ip
+                mensaje = info_recibida.getMensaje(); //Guarda el mensaje recibido en la variable mensaje
 
                 System.out.println(nombre + ip + mensaje);
 
-                Socket newclient = new Socket(ip,9090);
-                ObjectOutputStream reInfo = new ObjectOutputStream(newclient.getOutputStream());
+                Socket newclient = new Socket(ip,9090); //Se crea el socket cliente, para reeniar la informacion
+                ObjectOutputStream reInfo = new ObjectOutputStream(newclient.getOutputStream()); //Abre la conexion de receptor
 
-                reInfo.writeObject(info_recibida);
+                reInfo.writeObject(info_recibida); //Guarda los datos recibidos para luego reenviarlos
 
-                newclient.close();
+                newclient.close(); //termina la conexion con el cliente emisor
 
-                entrante.close(); // termina la conexion con el cliente
+                entrante.close(); // termina la conexion con el cliente receptor
             }
         }catch (IOException | ClassNotFoundException e){
             e.printStackTrace();
