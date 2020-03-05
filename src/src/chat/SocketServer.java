@@ -29,7 +29,7 @@ class Server implements Runnable{
     @Override
     public void run() {
         try{
-            ServerSocket serverSocket = new ServerSocket(7777); // se crea el server con X puerto para las conexiones
+            ServerSocket serverSocket = new ServerSocket(9999); // se crea el server con X puerto para las conexiones
 
             String nombre, ip, mensaje;
 
